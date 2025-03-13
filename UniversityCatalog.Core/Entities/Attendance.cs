@@ -3,7 +3,6 @@
 public class Attendance
 {
     // Id,DateTime,StudentId,Student,bool Present,CourseId,Course,CourseType
-    public int Id { get; set; }
     public DateTime Date { get; set; }
     public bool IsPresent { get; set; }
     

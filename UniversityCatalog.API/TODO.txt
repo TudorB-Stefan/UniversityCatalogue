@@ -7,6 +7,9 @@ Logic:
     Interfaces
     Repositories
     Controllers
+    Get all atendences of a certain 
+        - student
+        - course
 
 Structure:
     Student:
