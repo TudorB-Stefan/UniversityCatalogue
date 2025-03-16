@@ -1,3 +1,4 @@
+Filtrare studenti sau cautare studenti
 Future Ideas:
     Accounts
     LogIn/SignUp

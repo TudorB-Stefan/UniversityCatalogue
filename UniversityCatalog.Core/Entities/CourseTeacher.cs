@@ -13,7 +13,6 @@ public class CourseTeacher
 
 public enum TeacherPositionType
 {
-    Lecturer,
     Seminar,
     Lab
 }

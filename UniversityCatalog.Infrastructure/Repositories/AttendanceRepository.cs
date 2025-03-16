@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace UniversityCatalog.Infrastructure.Repositories;
 
-public class AttendanceRepository(DbContext context) : IRepositoryComp<Attendance>
+public class AttendanceRepository(DbContext context) : IGenericManyToManyRepository<Attendance>
 {
     protected readonly DbContext _context=context;
     protected readonly DbSet<Attendance> _dbSet=context.Set<Attendance>();
@@ -16,33 +16,34 @@ public class AttendanceRepository(DbContext context) : IRepositoryComp<Attendanc
 
     public async Task<Attendance> GetByIdAsync(int studentId,int courseId)
     {
-        var foundAttendace = await _dbSet.FindAsync(studentId,courseId);
-        if (foundAttendace is null)
+        var temp = await _dbSet.FindAsync(studentId,courseId);
+        if (temp is null)
             throw new KeyNotFoundException("Attendance record not found.");
-        return foundAttendace;
+        return temp;
     }
-    public async Task<Attendance> AddAsync(Attendance attendance)
+    public async Task AddAsync(Attendance attendance)
     {
+        if (attendance is null)
+            throw new KeyNotFoundException("Invalid Attendance");
         await _dbSet.AddAsync(attendance);
         await _context.SaveChangesAsync();
-        return attendance;
     }
 
     public async Task UpdateAsync(Attendance attendance)
     {
-        var toBeChange = await _dbSet.FindAsync(attendance.StudentId,attendance.CourseId);
-        if(toBeChange is null)
+        var temp = await _dbSet.FindAsync(attendance.StudentId,attendance.CourseId);
+        if(temp is null)
             throw new KeyNotFoundException("Attendance record not found.");
-        _dbSet.Entry(toBeChange).CurrentValues.SetValues(attendance);
+        _dbSet.Entry(temp).CurrentValues.SetValues(attendance);
         await _context.SaveChangesAsync();
     }
 
     public async Task DeleteAsync(int id)
     {
-        var toBeDeleted = await _dbSet.FindAsync(id);
-        if (toBeDeleted is null)
+        var temp = await _dbSet.FindAsync(id);
+        if (temp is null)
             throw new KeyNotFoundException("Attendance record not found.");
-        _dbSet.Remove(toBeDeleted);
+        _dbSet.Remove(temp);
         await _context.SaveChangesAsync();
     }
 }

@@ -11,12 +11,15 @@ public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options
     public DbSet<Grade> Grades { get; set; }
     public DbSet<Attendance> Attendances { get; set; }
     public DbSet<Student> Students { get; set; }
+    public DbSet<CourseStudent> CourseStudents { get; set; }
      protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<Attendance>()
             .HasKey(a => new { a.StudentId, a.CourseId });
         modelBuilder.Entity<CourseTeacher>()
             .HasKey(ct => new { ct.CourseId, ct.TeacherId });
+        modelBuilder.Entity<CourseStudent>()
+            .HasKey(cs => new { cs.CourseId, cs.StudentId });
         modelBuilder.Entity<Teacher>().HasKey(t => t.Id);
         modelBuilder.Entity<Student>().HasKey(s => s.Id);
         modelBuilder.Entity<Course>().HasKey(c => c.Id);
@@ -57,6 +60,19 @@ public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options
             .HasForeignKey(cl => cl.TeacherId)
             .OnDelete(DeleteBehavior.Cascade);
         
+        modelBuilder.Entity<CourseStudent>()
+            .HasOne(cs => cs.Course)
+            .WithMany(c => c.CourseStudents)
+            .HasForeignKey(cs => cs.CourseId)
+            .OnDelete(DeleteBehavior.Cascade);
+        modelBuilder.Entity<CourseStudent>()
+            .HasOne(cs => cs.Student)
+            .WithMany(s => s.CourseStudents)
+            .HasForeignKey(cs => cs.StudentId)
+            .OnDelete(DeleteBehavior.Cascade);
+        
+        modelBuilder.Entity<Grade>()
+            .Property(g => g.GradeType).HasConversion<string>();
         modelBuilder.Entity<Teacher>().HasIndex(t => t.RoleId);
         modelBuilder.Entity<Course>().HasIndex(c => c.LecturerId);
         modelBuilder.Entity<Attendance>().HasIndex(a => new { a.StudentId, a.CourseId });
