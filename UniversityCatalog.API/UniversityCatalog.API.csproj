@@ -21,13 +21,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\UniversityCatalog.Application\UniversityCatalog.Application.csproj" />
-    <ProjectReference Include="..\UniversityCatalog.Core\UniversityCatalog.Core.csproj" />
     <ProjectReference Include="..\UniversityCatalog.Infrastructure\UniversityCatalog.Infrastructure.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Controllers\" />
   </ItemGroup>
 
 </Project>

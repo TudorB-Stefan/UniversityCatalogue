@@ -1,5 +1,6 @@
 ﻿using API.Models;
 using Microsoft.EntityFrameworkCore;
+using UniversityCatalog.Core.Interfaces;
 using UniversityCatalog.Infrastructure.Specifications;
 
 namespace UniversityCatalog.Infrastructure.Repositories;
@@ -9,7 +10,7 @@ public class StudentRepository(DbContext context):IGenericRepository<Student>
     protected readonly DbContext _context = context;
     protected readonly DbSet<Student> _dbSet = context.Set<Student>();
 
-    public async Task<IEnumerable<Student>> GetAllAsync()
+    public async Task<List<Student>> GetAllAsync()
     {
         return await _dbSet.ToListAsync();
     }

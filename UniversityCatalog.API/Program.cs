@@ -1,10 +1,15 @@
 using Scalar.AspNetCore;
+using UniversityCatalog.Infrastructure.Repositories;
+using UniversityCatalog.Infrastructure.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
+builder.Services.AddScoped<StudentRepository, StudentRepository>();
+// builder.Services.AddScoped<IStudentService, StudentService>();
+
 
 var app = builder.Build();
 

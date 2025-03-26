@@ -1,21 +1,23 @@
 ﻿using API.Models;
 using Microsoft.EntityFrameworkCore;
+using UniversityCatalog.Core.Interfaces;
+using UniversityCatalog.Infrastructure.Specifications;
 
 namespace UniversityCatalog.Infrastructure.Repositories;
 
-public class GradeRepository(DbContext context) : IGenericManyToManyRepository<Grade>
+public class GradeRepository(DbContext context) : IGenericM2MRepository<Grade>
 {
     protected readonly DbContext _context = context;
     protected readonly DbSet<Grade> _dbSet=context.Set<Grade>();
 
-    public async Task<IEnumerable<Grade>> GetAllAsync()
+    public async Task<List<Grade>> GetAllAsync()
     {
         return await _dbSet.ToListAsync();
     }
 
-    public async Task<Grade> GetByIdAsync(int id1, int id2)
+    public async Task<Grade> GetByIdAsync(int studentId,int courseId)
     {
-        var temp = await _dbSet.FindAsync(id1, id2);
+        var temp = await _dbSet.FindAsync(studentId,courseId);
         if (temp is null)
             throw new KeyNotFoundException("Grade record not found");
         return temp;
@@ -45,5 +47,10 @@ public class GradeRepository(DbContext context) : IGenericManyToManyRepository<G
             throw new KeyNotFoundException("Grade record not found");
         _dbSet.Remove(temp);
         await _context.SaveChangesAsync();
+    }
+    public async Task<List<Grade>> GetListBySpecificationAsync(ISpecification<Grade> specification)
+    {
+        var query = SpecificationEvaluator<Grade>.GetQuery(_dbSet.AsQueryable(), specification);
+        return await query.ToListAsync();
     }
 }

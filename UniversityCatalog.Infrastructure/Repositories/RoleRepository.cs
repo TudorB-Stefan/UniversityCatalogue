@@ -1,5 +1,6 @@
 ﻿using API.Models;
 using Microsoft.EntityFrameworkCore;
+using UniversityCatalog.Core.Interfaces;
 using UniversityCatalog.Infrastructure.Specifications;
 
 namespace UniversityCatalog.Infrastructure.Repositories;
@@ -8,7 +9,7 @@ public class RoleRepository(DbContext context) : IGenericRepository<Role>
 {
     protected readonly DbContext _context = context;
     protected readonly DbSet<Role> _dbSet=context.Set<Role>();
-    public async Task<IEnumerable<Role>> GetAllAsync()
+    public async Task<List<Role>> GetAllAsync()
     {
         return await _dbSet.ToListAsync();
     }

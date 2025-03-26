@@ -1,5 +1,6 @@
 ﻿using API.Models;
 using Microsoft.EntityFrameworkCore;
+using UniversityCatalog.Core.Interfaces;
 using UniversityCatalog.Infrastructure.Specifications;
 using UniversityCatalog.Infrastructure.Specifications.CourseSpecifications;
 
@@ -9,7 +10,7 @@ public class CourseRepository(DbContext context) : IGenericRepository<Course>
 {
     protected readonly DbContext _context = context;
     protected readonly DbSet<Course> _dbSet = context.Set<Course>();
-    public async Task<IEnumerable<Course>> GetAllAsync()
+    public async Task<List<Course>> GetAllAsync()
     {
         return await _dbSet.ToListAsync();
     }
@@ -47,10 +48,5 @@ public class CourseRepository(DbContext context) : IGenericRepository<Course>
     {
         var query = SpecificationEvaluator<Course>.GetQuery(_dbSet.AsQueryable(), specification);
         return await query.ToListAsync();
-    }
-    public async Task<IEnumerable<Course>> GetCourseByStudentIdAsync(int studentId)
-    {
-        var spec = new GetCourseWithStudentIdSpecification(studentId);
-        return await GetListBySpecificationAsync(spec);
     }
 }

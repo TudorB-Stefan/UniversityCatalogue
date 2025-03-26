@@ -1647,27 +1647,13 @@
           }
         }
       },
-      "UniversityCatalog.Application/1.0.0": {
-        "type": "project",
-        "framework": ".NETCoreApp,Version=v9.0",
-        "dependencies": {
-          "Microsoft.EntityFrameworkCore.SqlServer": "9.0.3",
-          "Scalar.AspNetCore": "2.0.30",
-          "UniversityCatalog.Core": "1.0.0"
-        },
-        "compile": {
-          "bin/placeholder/UniversityCatalog.Application.dll": {}
-        },
-        "runtime": {
-          "bin/placeholder/UniversityCatalog.Application.dll": {}
-        }
-      },
       "UniversityCatalog.Core/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v9.0",
         "dependencies": {
           "Microsoft.EntityFrameworkCore.SqlServer": "9.0.3",
-          "Scalar.AspNetCore": "2.0.30"
+          "Scalar.AspNetCore": "2.0.30",
+          "UniversityCatalog.API": "1.0.0"
         },
         "compile": {
           "bin/placeholder/UniversityCatalog.Core.dll": {}
@@ -4842,11 +4828,6 @@
         "useSharedDesignerContext.txt"
       ]
     },
-    "UniversityCatalog.Application/1.0.0": {
-      "type": "project",
-      "path": "../UniversityCatalog.Application/UniversityCatalog.Application.csproj",
-      "msbuildProject": "../UniversityCatalog.Application/UniversityCatalog.Application.csproj"
-    },
     "UniversityCatalog.Core/1.0.0": {
       "type": "project",
       "path": "../UniversityCatalog.Core/UniversityCatalog.Core.csproj",
@@ -4865,8 +4846,6 @@
       "Microsoft.EntityFrameworkCore.SqlServer >= 9.0.3",
       "Microsoft.EntityFrameworkCore.Tools >= 9.0.3",
       "Scalar.AspNetCore >= 2.0.30",
-      "UniversityCatalog.Application >= 1.0.0",
-      "UniversityCatalog.Core >= 1.0.0",
       "UniversityCatalog.Infrastructure >= 1.0.0"
     ]
   },
@@ -4895,12 +4874,6 @@
         "net9.0": {
           "targetAlias": "net9.0",
           "projectReferences": {
-            "C:\\Users\\tudor\\OneDrive\\Desktop\\.NET Projects\\UniversityCatalogue\\UniversityCatalog\\UniversityCatalog.Application\\UniversityCatalog.Application.csproj": {
-              "projectPath": "C:\\Users\\tudor\\OneDrive\\Desktop\\.NET Projects\\UniversityCatalogue\\UniversityCatalog\\UniversityCatalog.Application\\UniversityCatalog.Application.csproj"
-            },
-            "C:\\Users\\tudor\\OneDrive\\Desktop\\.NET Projects\\UniversityCatalogue\\UniversityCatalog\\UniversityCatalog.Core\\UniversityCatalog.Core.csproj": {
-              "projectPath": "C:\\Users\\tudor\\OneDrive\\Desktop\\.NET Projects\\UniversityCatalogue\\UniversityCatalog\\UniversityCatalog.Core\\UniversityCatalog.Core.csproj"
-            },
             "C:\\Users\\tudor\\OneDrive\\Desktop\\.NET Projects\\UniversityCatalogue\\UniversityCatalog\\UniversityCatalog.Infrastructure\\UniversityCatalog.Infrastructure.csproj": {
               "projectPath": "C:\\Users\\tudor\\OneDrive\\Desktop\\.NET Projects\\UniversityCatalogue\\UniversityCatalog\\UniversityCatalog.Infrastructure\\UniversityCatalog.Infrastructure.csproj"
             }
@@ -4970,5 +4943,16 @@
         "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.201/PortableRuntimeIdentifierGraph.json"
       }
     }
-  }
+  },
+  "logs": [
+    {
+      "code": "NU1108",
+      "level": "Error",
+      "message": "Cycle detected. \r\n  UniversityCatalog.API -> UniversityCatalog.Infrastructure -> UniversityCatalog.Core -> UniversityCatalog.API.",
+      "libraryId": "UniversityCatalog.API",
+      "targetGraphs": [
+        "net9.0"
+      ]
+    }
+  ]
 }
