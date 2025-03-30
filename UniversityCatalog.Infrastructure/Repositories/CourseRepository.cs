@@ -1,12 +1,14 @@
-﻿using API.Models;
+﻿using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.EntityFrameworkCore;
+using UniversityCatalog.Core.Entities;
 using UniversityCatalog.Core.Interfaces;
+using UniversityCatalog.Infrastructure.Data;
 using UniversityCatalog.Infrastructure.Specifications;
 using UniversityCatalog.Infrastructure.Specifications.CourseSpecifications;
 
 namespace UniversityCatalog.Infrastructure.Repositories;
 
-public class CourseRepository(DbContext context) : IGenericRepository<Course>
+public class CourseRepository(ApplicationDbContext context) : IGenericRepository<Course>
 {
     protected readonly DbContext _context = context;
     protected readonly DbSet<Course> _dbSet = context.Set<Course>();

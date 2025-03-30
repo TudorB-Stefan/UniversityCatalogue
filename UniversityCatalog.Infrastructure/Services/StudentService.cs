@@ -1,5 +1,5 @@
-﻿using API.Models;
-using UniversityCatalog.API.DTOs.Students;
+﻿using UniversityCatalog.Core.DTOs.Students;
+using UniversityCatalog.Core.Entities;
 using UniversityCatalog.Core.Interfaces;
 using UniversityCatalog.Core.Interfaces.Services;
 using UniversityCatalog.Infrastructure.Specifications.StudentSpecifications;
@@ -31,16 +31,22 @@ public class StudentService(IGenericRepository<Student> studentRepository) : ISt
             Email = studentDto.Email,
             PhoneNumber = studentDto.PhoneNumber,
             CurrentYear = studentDto.CurrentYear,
-            LastYear = studentDto.LastYear
+            // LastYear = studentDto.LastYear,
+            CourseStudents = 
+                studentDto.CourseIds.Select(courseId => new CourseStudent{CourseId = courseId}).ToList(),
+            Grades = 
+                studentDto.GradeIds.Select(courseId => new Grade{CourseId = courseId}).ToList(),
+            Attendances = 
+                studentDto.GradeIds.Select(courseId => new Attendance{CourseId = courseId}).ToList()
         };
         await _studentRepository.AddAsync(addedStudent);
         return addedStudent;
     }
     public async Task<Student> UpdateStudentAsync(StudentUpdateDto studentDto)
     {
-        var updateStudent = await _studentRepository.GetByIdAsync(studentDto.Id);
         if (studentDto == null)
             throw new KeyNotFoundException("Student not found!");
+        var updateStudent = await _studentRepository.GetByIdAsync(studentDto.Id);
 
         updateStudent.Id = studentDto.Id;
         updateStudent.FirstName = studentDto.FirstName;
@@ -48,7 +54,13 @@ public class StudentService(IGenericRepository<Student> studentRepository) : ISt
         updateStudent.Email = studentDto.Email;
         updateStudent.PhoneNumber = studentDto.PhoneNumber;
         updateStudent.CurrentYear = studentDto.CurrentYear;
-        updateStudent.LastYear = studentDto.LastYear;
+        // updateStudent.LastYear = studentDto.LastYear;
+        updateStudent.CourseStudents =
+            studentDto.CourseIds.Select(courseId => new CourseStudent { CourseId = courseId,StudentId = updateStudent.Id}).ToList();
+        updateStudent.Grades = 
+            studentDto.GradeIds.Select(courseId => new Grade { CourseId = courseId,StudentId = updateStudent.Id }).ToList();
+        updateStudent.Attendances =
+            studentDto.GradeIds.Select(courseId => new Attendance { CourseId = courseId,StudentId = updateStudent.Id }).ToList();
         
         await _studentRepository.UpdateAsync(updateStudent);
         return updateStudent;

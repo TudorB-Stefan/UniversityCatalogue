@@ -1,11 +1,12 @@
-﻿using API.Models;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
+using UniversityCatalog.Core.Entities;
 using UniversityCatalog.Core.Interfaces;
+using UniversityCatalog.Infrastructure.Data;
 using UniversityCatalog.Infrastructure.Specifications;
 
 namespace UniversityCatalog.Infrastructure.Repositories;
 
-public class RoleRepository(DbContext context) : IGenericRepository<Role>
+public class RoleRepository(ApplicationDbContext context) : IGenericRepository<Role>
 {
     protected readonly DbContext _context = context;
     protected readonly DbSet<Role> _dbSet=context.Set<Role>();

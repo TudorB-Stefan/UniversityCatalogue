@@ -1,4 +1,4 @@
-﻿using API.Models;
+﻿using UniversityCatalog.Core.Entities;
 
 namespace UniversityCatalog.Infrastructure.Specifications.AttendanceSpecifications;
 

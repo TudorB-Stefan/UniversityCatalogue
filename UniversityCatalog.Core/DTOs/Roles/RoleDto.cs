@@ -1,6 +1,6 @@
-﻿using UniversityCatalog.API.DTOs.Teachers;
+﻿using UniversityCatalog.Core.DTOs.Teachers;
 
-namespace UniversityCatalog.API.DTOs.Roles;
+namespace UniversityCatalog.Core.DTOs.Roles;
 
 public class RoleDto
 {

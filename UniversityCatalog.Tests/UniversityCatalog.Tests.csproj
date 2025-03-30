@@ -28,8 +28,8 @@
     <Using Include="Xunit" />
   </ItemGroup>
 
-  <ItemGroup>
+  <!-- <ItemGroup>
     <ProjectReference Include="..\UniversityCatalog.Core\UniversityCatalog.Core.csproj" />
-  </ItemGroup>
+  </ItemGroup> -->
 
 </Project>

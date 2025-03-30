@@ -1,12 +1,13 @@
-﻿using UniversityCatalog.API.DTOs.Attendances;
-using UniversityCatalog.API.DTOs.Grades;
-using UniversityCatalog.API.DTOs.Students;
-using UniversityCatalog.API.DTOs.Teachers;
+﻿using UniversityCatalog.Core.DTOs.Attendances;
+using UniversityCatalog.Core.DTOs.Grades;
+using UniversityCatalog.Core.DTOs.Students;
+using UniversityCatalog.Core.DTOs.Teachers;
 
-namespace UniversityCatalog.API.DTOs.Courses;
+namespace UniversityCatalog.Core.DTOs.Courses;
 
-public class CourseCreateDto
+public class CourseDto
 {
+    public int Id { get; set; }
     public string Name { get; set; }
     public int LecturerId { get; set; }
     public TeacherDto Lecturer { get; set; }

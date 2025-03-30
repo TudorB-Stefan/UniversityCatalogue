@@ -1,7 +1,4 @@
-﻿using UniversityCatalog.API.DTOs.Courses;
-using UniversityCatalog.API.DTOs.Students;
-
-namespace API.Models;
+﻿namespace UniversityCatalog.Core.Entities;
 
 public class Attendance
 {

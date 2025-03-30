@@ -1,5 +1,5 @@
-﻿using API.Models;
-using UniversityCatalog.API.DTOs.Students;
+﻿using UniversityCatalog.Core.DTOs.Students;
+using UniversityCatalog.Core.Entities;
 
 namespace UniversityCatalog.Core.Interfaces.Services;
 

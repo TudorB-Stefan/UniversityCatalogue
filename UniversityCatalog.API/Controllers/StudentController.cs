@@ -1,6 +1,5 @@
-﻿using API.Models;
-using Microsoft.AspNetCore.Mvc;
-using UniversityCatalog.API.DTOs.Students;
+﻿using Microsoft.AspNetCore.Mvc;
+using UniversityCatalog.Core.DTOs.Students;
 using UniversityCatalog.Core.Interfaces.Services;
 
 namespace UniversityCatalog.API.Controllers;
@@ -12,30 +11,30 @@ public class StudentController(IStudentService studentService) : ControllerBase
     private readonly IStudentService _studentService=studentService;
 
     [HttpGet]
-    public async Task<ActionResult<IEnumerable<StudentDto>>> GetAllStudents()
+    public async Task<ActionResult<IEnumerable<StudentDto>>> GetAllStudentsAsync()
     {
         var students = await _studentService.GetAllStudentsAsync();
         return Ok(students);
     }
 
     [HttpGet("{id}")]
-    public async Task<ActionResult<StudentDto>> GetStudentsById(int id)
+    public async Task<ActionResult<StudentDto>> GetStudentsByIdAsync(int id)
     {
-        var students = await _studentService.GetStudentsByIdAsync(id);
-        return Ok(students);
+        var student = await _studentService.GetStudentsByIdAsync(id);
+        return Ok(student);
     }
 
     [HttpPost]
-    public async Task<IActionResult> CreateStudent([FromBody]StudentCreateDto studentDto)
+    public async Task<IActionResult> CreateStudentAsync([FromBody]StudentCreateDto studentDto)
     {
         var newStudent = await _studentService.CreateStudentAsync(studentDto);
-        return CreatedAtAction(nameof(GetStudentsById),new {id = newStudent.Id},newStudent);
+        return Ok(newStudent);
     }
 
     [HttpPut("{id}")]
-    public async Task<IActionResult> UpdateStudentAsync([FromBody]StudentUpdateDto student)
+    public async Task<IActionResult> UpdateStudentAsync([FromBody]StudentUpdateDto studentDto)
     {
-        var updateStudent = _studentService.GetStudentsByIdAsync(student.Id);
+        var updateStudent = await _studentService.UpdateStudentAsync(studentDto);
         return Ok(updateStudent);
     }
     

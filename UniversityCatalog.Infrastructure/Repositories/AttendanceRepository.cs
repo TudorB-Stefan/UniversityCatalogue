@@ -1,11 +1,12 @@
-﻿using API.Models;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
+using UniversityCatalog.Core.Entities;
 using UniversityCatalog.Core.Interfaces;
+using UniversityCatalog.Infrastructure.Data;
 using UniversityCatalog.Infrastructure.Specifications;
 
 namespace UniversityCatalog.Infrastructure.Repositories;
 
-public class AttendanceRepository(DbContext context) : IGenericM2MRepository<Attendance>
+public class AttendanceRepository(ApplicationDbContext context) : IGenericM2MRepository<Attendance>
 {
     protected readonly DbContext _context=context;
     protected readonly DbSet<Attendance> _dbSet=context.Set<Attendance>();

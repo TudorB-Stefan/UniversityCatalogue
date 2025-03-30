@@ -1,11 +1,11 @@
-﻿namespace UniversityCatalog.API.DTOs.Students;
+﻿namespace UniversityCatalog.Core.DTOs.Teachers;
 
-public class StudentCreateDto
+public class TeacherCreateDto
 {
     public string FirstName { get; set; }
     public string LastName { get; set; }
     public string Email { get; set; }
     public string PhoneNumber { get; set; }
-    public int CurrentYear { get; set; }
-    public DateTime LastYear { get; set; }
+    public int RoleId { get; set; }
+    public List<int> CourseIds { get; set; }
 }

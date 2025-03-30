@@ -1,11 +1,13 @@
-﻿using API.Models;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
+using UniversityCatalog.Core.Entities;
 using UniversityCatalog.Core.Interfaces;
+using UniversityCatalog.Infrastructure.Data;
 using UniversityCatalog.Infrastructure.Specifications;
+using UniversityCatalog.Infrastructure.Specifications.TeacherSpecifications;
 
 namespace UniversityCatalog.Infrastructure.Repositories;
 
-public class TeacherRepository(DbContext context):IGenericRepository<Teacher>
+public class TeacherRepository(ApplicationDbContext context):IGenericRepository<Teacher>
 {
     
     protected readonly DbContext _context = context;
@@ -46,6 +48,7 @@ public class TeacherRepository(DbContext context):IGenericRepository<Teacher>
         _dbSet.Remove(temp);
         await _context.SaveChangesAsync();
     }
+    
     public async Task<List<Teacher>> GetListBySpecificationAsync(ISpecification<Teacher> specification)
     {
         var query = SpecificationEvaluator<Teacher>.GetQuery(_dbSet.AsQueryable(), specification);

@@ -1,9 +1,9 @@
-﻿using UniversityCatalog.API.DTOs.Courses;
-using UniversityCatalog.API.DTOs.Students;
+﻿using UniversityCatalog.Core.DTOs.Courses;
+using UniversityCatalog.Core.DTOs.Students;
 
-namespace UniversityCatalog.API.DTOs.Attendances;
+namespace UniversityCatalog.Core.DTOs.Attendances;
 
-public class AttendanceCreateDto
+public class AttendanceDto
 {
     public DateTime Date { get; set; }
     public bool IsPresent { get; set; }

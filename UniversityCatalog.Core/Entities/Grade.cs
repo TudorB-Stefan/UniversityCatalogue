@@ -1,4 +1,4 @@
-﻿namespace API.Models;
+﻿namespace UniversityCatalog.Core.Entities;
 
 public class Grade
 {

@@ -1,11 +1,12 @@
-﻿using API.Models;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
+using UniversityCatalog.Core.Entities;
 using UniversityCatalog.Core.Interfaces;
+using UniversityCatalog.Infrastructure.Data;
 using UniversityCatalog.Infrastructure.Specifications;
 
 namespace UniversityCatalog.Infrastructure.Repositories;
 
-public class GradeRepository(DbContext context) : IGenericM2MRepository<Grade>
+public class GradeRepository(ApplicationDbContext context) : IGenericM2MRepository<Grade>
 {
     protected readonly DbContext _context = context;
     protected readonly DbSet<Grade> _dbSet=context.Set<Grade>();

@@ -18,8 +18,9 @@
     </PackageReference>
     <PackageReference Include="Scalar.AspNetCore" Version="2.0.30" />
   </ItemGroup>
-
+  
   <ItemGroup>
-    <ProjectReference Include="..\UniversityCatalog.API\UniversityCatalog.API.csproj" />
+    <!-- <ProjectReference Include="..\UniversityCatalog.API\UniversityCatalog.API.csproj" /> -->
+    <!-- <ProjectReference Include="..\UniversityCatalog.Infrastructure\UniversityCatalog.Infrastructure.csproj" /> -->
   </ItemGroup>
 </Project>

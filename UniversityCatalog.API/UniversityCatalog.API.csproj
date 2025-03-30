@@ -22,6 +22,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\UniversityCatalog.Infrastructure\UniversityCatalog.Infrastructure.csproj" />
+    <ProjectReference Include="..\UniversityCatalog.Core\UniversityCatalog.Core.csproj" />
   </ItemGroup>
 
 </Project>

@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using UniversityCatalog.Core.Interfaces;
-using UniversityCatalog.Infrastructure.Specifications;
+// using UniversityCatalog.Infrastructure.Specifications;
 
 namespace UniversityCatalog.Core.Interfaces;
 

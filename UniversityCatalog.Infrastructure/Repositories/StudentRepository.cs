@@ -1,11 +1,12 @@
-﻿using API.Models;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
+using UniversityCatalog.Core.Entities;
 using UniversityCatalog.Core.Interfaces;
+using UniversityCatalog.Infrastructure.Data;
 using UniversityCatalog.Infrastructure.Specifications;
 
 namespace UniversityCatalog.Infrastructure.Repositories;
 
-public class StudentRepository(DbContext context):IGenericRepository<Student>
+public class StudentRepository(ApplicationDbContext  context):IGenericRepository<Student>
 {
     protected readonly DbContext _context = context;
     protected readonly DbSet<Student> _dbSet = context.Set<Student>();

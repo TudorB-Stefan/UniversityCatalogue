@@ -1,7 +1,7 @@
-﻿using API.Models;
-using UniversityCatalog.API.DTOs.Roles;
+﻿using UniversityCatalog.Core.DTOs.Courses;
+using UniversityCatalog.Core.DTOs.Roles;
 
-namespace UniversityCatalog.API.DTOs.Teachers;
+namespace UniversityCatalog.Core.DTOs.Teachers;
 
 public class TeacherDto
 {
@@ -12,5 +12,8 @@ public class TeacherDto
     public string PhoneNumber { get; set; }
     public int CurrentYear { get; set; }
     public DateTime LastYear { get; set; }
+    public int RoleId { get; set; }
     public RoleDto Role { get; set; }
+    public List<CourseDto> Courses { get; set; }
+    public List<TeacherDto> CourseTeachers { get; set; }
 }

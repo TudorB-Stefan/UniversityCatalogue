@@ -1,13 +1,17 @@
-﻿using API.Models;
+﻿using UniversityCatalog.Core.DTOs.Attendances;
+using UniversityCatalog.Core.DTOs.Attendances;
+using UniversityCatalog.Core.Entities;
 using UniversityCatalog.Core.Interfaces;
 using UniversityCatalog.Core.Interfaces.Services;
 using UniversityCatalog.Infrastructure.Specifications.AttendanceSpecifications;
 
 namespace UniversityCatalog.Infrastructure.Services;
 
-public class AttendanceService(IGenericM2MRepository<Attendance> attendanceRepository) : IAttendanceService
+public class AttendanceService(IGenericM2MRepository<Attendance> attendanceRepository,IGenericRepository<Student> studentRepository,IGenericRepository<Course> courseRepository) : IAttendanceService
 {
     private readonly IGenericM2MRepository<Attendance> _attendanceRepository = attendanceRepository;
+    private readonly IGenericRepository<Student> _studentRepository = studentRepository;
+    private readonly IGenericRepository<Course> _courseRepository = courseRepository;
     public async Task<IReadOnlyList<Attendance>> GetAllAttendancesAsync()
     {
         return await _attendanceRepository.GetAllAsync();
@@ -28,15 +32,35 @@ public class AttendanceService(IGenericM2MRepository<Attendance> attendanceRepos
     {
         return await _attendanceRepository.GetByIdAsync(studentId,courseId);
     }
-    public async Task<Attendance> CreateAttendanceAsync(Attendance attendance)
+    public async Task<Attendance> CreateAttendanceAsync(AttendanceCreateDto attendanceDto)
     {
-        await _attendanceRepository.AddAsync(attendance);
-        return attendance;
+        var addedAttendance = new Attendance
+        {
+            Date = attendanceDto.Date,
+            IsPresent = attendanceDto.IsPresent,
+            StudentId = attendanceDto.StudentId,
+            Student = await _studentRepository.GetByIdAsync(attendanceDto.StudentId),
+            CourseId = attendanceDto.CourseId,
+            Course = await _courseRepository.GetByIdAsync(attendanceDto.CourseId),
+            CourseType = attendanceDto.CourseType
+        };
+        await _attendanceRepository.AddAsync(addedAttendance);
+        return addedAttendance;
     }
-    public async Task<Attendance> UpdateAttendanceAsync(Attendance attendance)
+    public async Task<Attendance> UpdateAttendanceAsync(AttendanceUpdateDto attendanceDto)
     {
-        await _attendanceRepository.UpdateAsync(attendance);
-        return attendance;
+        if (attendanceDto == null)
+            throw new KeyNotFoundException("Course not found!");
+        var updateAttendance = await _attendanceRepository.GetByIdAsync(attendanceDto.CourseId,attendanceDto.StudentId);
+        updateAttendance.Date = attendanceDto.Date;
+        updateAttendance.IsPresent = attendanceDto.IsPresent;
+        updateAttendance.StudentId = attendanceDto.StudentId;
+        updateAttendance.Student = await _studentRepository.GetByIdAsync(attendanceDto.StudentId);
+        updateAttendance.CourseId = attendanceDto.CourseId;
+        updateAttendance.Course = await _courseRepository.GetByIdAsync(attendanceDto.CourseId);
+        updateAttendance.CourseType = attendanceDto.CourseType;
+        await _attendanceRepository.UpdateAsync(updateAttendance);
+        return updateAttendance;
     }
     public async Task DeleteAttendanceAsync(int id)
     {
