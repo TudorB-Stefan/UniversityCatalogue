@@ -59,14 +59,10 @@ public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options
              }
          );
          
-        modelBuilder.Entity<Attendance>()
-            .HasKey(a => new { a.StudentId, a.CourseId });
-        modelBuilder.Entity<CourseTeacher>()
-            .HasKey(ct => new { ct.CourseId, ct.TeacherId });
-        modelBuilder.Entity<CourseStudent>()
-            .HasKey(cs => new { cs.CourseId, cs.StudentId });
-        modelBuilder.Entity<Grade>()
-            .HasKey(ct => new { ct.CourseId, ct.StudentId });
+        modelBuilder.Entity<Attendance>().HasKey(a => new { a.StudentId, a.CourseId });
+        modelBuilder.Entity<CourseTeacher>().HasKey(ct => new { ct.CourseId, ct.TeacherId });
+        modelBuilder.Entity<CourseStudent>().HasKey(cs => new { cs.CourseId, cs.StudentId });
+        modelBuilder.Entity<Grade>().HasKey(g => new { g.CourseId, g.StudentId });
         modelBuilder.Entity<Teacher>().HasKey(t => t.Id);
         modelBuilder.Entity<Student>().HasKey(s => s.Id);
         modelBuilder.Entity<Course>().HasKey(c => c.Id);
@@ -96,14 +92,14 @@ public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options
         //     .OnDelete(DeleteBehavior.Restrict);
         
         modelBuilder.Entity<CourseTeacher>()
-            .HasOne(cl => cl.Course)
+            .HasOne(ct => ct.Course)
             .WithMany(c => c.CourseTeachers)
-            .HasForeignKey(cl => cl.CourseId)
+            .HasForeignKey(ct => ct.CourseId)
             .OnDelete(DeleteBehavior.Cascade);
         modelBuilder.Entity<CourseTeacher>()
-            .HasOne(cl => cl.Teacher)
+            .HasOne(ct => ct.Teacher)
             .WithMany(t => t.CourseTeachers)
-            .HasForeignKey(cl => cl.TeacherId)
+            .HasForeignKey(ct => ct.TeacherId)
             .OnDelete(DeleteBehavior.Cascade);
         
         modelBuilder.Entity<CourseStudent>()
@@ -117,8 +113,12 @@ public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options
             .HasForeignKey(cs => cs.StudentId)
             .OnDelete(DeleteBehavior.Cascade);
 
+        modelBuilder.Entity<Student>().HasIndex(s => s.Email).IsUnique();
+        modelBuilder.Entity<Teacher>().HasIndex(t => t.Email).IsUnique();
+        
         modelBuilder.Entity<Grade>()
-            .Property(g => g.GradeType).HasConversion<string>();
+            .Property(g => g.GradeType)
+            .HasConversion<string>();
         modelBuilder.Entity<Grade>()
             .Property(g => g.Value)
             .HasColumnType("decimal(18, 2)");
